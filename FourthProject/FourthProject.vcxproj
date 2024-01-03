@@ -63,14 +63,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="3DTexture.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="Model_3DS.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="PrimitiveDrawer.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3DTexture.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="Model_3DS.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PrimitiveDrawer.h" />
     <ClInclude Include="texture.h" />

@@ -10,7 +10,7 @@
 #include "Point.h"
 
 #include <fstream>
-
+#include "Model_3DS.h"
 
 
 
@@ -38,7 +38,7 @@ GLvoid ReSizeGLScene(GLsizei width, GLsizei height)		// Resize And Initialize Th
 	glLoadIdentity();									// Reset The Projection Matrix
 
 	// Calculate The Aspect Ratio Of The Window
-	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 1000.0f);
+	gluPerspective(45.0f, (GLfloat)width / (GLfloat)height, 0.3f, 1000.0f);
 
 	glMatrixMode(GL_MODELVIEW);							// Select The Modelview Matrix
 	glLoadIdentity();									// Reset The Modelview Matrix
@@ -53,72 +53,6 @@ PrimitiveDrawer r = PrimitiveDrawer();
 int SKYFRONT, SKYBACK, SKYLEFT, SKYRIGHT, SKYUP, SKYDOWN;
 
 GLUquadric *quadric = gluNewQuadric();
-
-void drawUnitCube() {
-
-	glBegin(GL_QUADS);
-
-	//Front Face
-	glNormal3f(0, 0, 1);
-	glVertex3f(-0.5, -0.5, 0.5);
-	glVertex3f(0.5, -0.5, 0.5);
-	glVertex3f(0.5, 0.5, 0.5);
-	glVertex3f(-0.5, 0.5, 0.5);
-
-	//Back Face
-	glNormal3f(0, 0, -1);
-	glVertex3f(-0.5, -0.5, -0.5);
-	glVertex3f(0.5, -0.5, -0.5);
-	glVertex3f(0.5, 0.5, -0.5);
-	glVertex3f(-0.5, 0.5, -0.5);
-
-	//Right Face
-	glNormal3f(1, 0, 0);
-	glVertex3f(0.5, -0.5, -0.5);
-	glVertex3f(0.5, 0.5, -0.5);
-	glVertex3f(0.5, 0.5, 0.5);
-	glVertex3f(0.5, -0.5, 0.5);
-
-	//Left Face
-	glNormal3f(-1, 0, 0);
-	glVertex3f(-0.5, -0.5, -0.5);
-	glVertex3f(-0.5, 0.5, -0.5);
-	glVertex3f(-0.5, 0.5, 0.5);
-	glVertex3f(-0.5, -0.5, 0.5);
-
-	//Top Face
-	glNormal3f(0, 1, 0);
-	glVertex3f(-0.5, 0.5, -0.5);
-	glVertex3f(0.5, 0.5, -0.5);
-	glVertex3f(0.5, 0.5, 0.5);
-	glVertex3f(-0.5, 0.5, 0.5);
-
-	//Bottom Face
-	glNormal3f(0, -1, 0);
-	glVertex3f(-0.5, -0.5, -0.5);
-	glVertex3f(0.5, -0.5, -0.5);
-	glVertex3f(0.5, -0.5, 0.5);
-	glVertex3f(-0.5, -0.5, 0.5);
-
-	glEnd();
-}
-
-void drawMyCube(float xPos, float yPos, float zPos,
-	float xSize, float ySize, float zSize,
-	float xRot, float yRot, float zRot) {
-
-	glPushMatrix();
-
-	glTranslatef(xPos, yPos, zPos);
-	glRotatef(xRot, 1, 0, 0);
-	glRotatef(yRot, 0, 1, 0);
-	glRotatef(zRot, 0, 0, 1);
-	glScalef(xSize, ySize, zSize);
-	drawUnitCube();
-
-	glPopMatrix();
-
-}
 
 
 
@@ -234,6 +168,10 @@ int image3, leftSideMosque1, leftSideMosque, topMosque,bottomMosque, rightSideMo
 rightSideMosqueFront3front, roofTop, roofSide, roofSideRotated, frontFront, doomSphere, sidePrayer, sideMusiam
 , frontMusiam, frontMusiam2,azan, azanRotated,darkWall, smallDom1, smallDom2, mainGround, mainWall, rotatedMainWall, WallRock1, WallRock2, WallRock3,
 Dom, domWall2, WallRock2Rotated, domPlus, domRoof, grass;
+
+Model_3DS* tree;
+GLTexture BARK, Leaf;
+
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -309,10 +247,32 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	SKYDOWN = LoadTexture("down.bmp", 255);
 	// note if you load a image the opengl while on the GL_Texture_2D himself
 	glDisable(GL_TEXTURE_2D);
+
+
+
+
+	tree = new Model_3DS();
+	tree->Load("Tree1.3DS");
+	Leaf.LoadBMP("bat2.bmp");
+	BARK.LoadBMP("bark_loo.bmp");
+
+
+	tree->Materials[0].tex = BARK;
+	tree->Materials[1].tex = Leaf;
+	tree->Materials[2].tex = Leaf;
+	tree->Materials[3].tex = Leaf;
+	tree->Materials[4].tex = Leaf;
+
+
+	tree->pos.x = -130;
+	tree->pos.y =0;
+	tree->pos.z = -50;
+	tree->scale = 1.5;
+
 	
 	MyCamera = Camera();
-	MyCamera.RotateY(-270);
-	MyCamera.Position.x = -40;
+	MyCamera.RotateY(-290);
+	MyCamera.Position.x = -50;
 	MyCamera.Position.y = 20;
 	MyCamera.Position.z = 20;
 	return TRUE;										// Initialization Went OK
@@ -615,13 +575,17 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glLoadIdentity();
 
 	MyCamera.Render();
+	tree->Draw();
 	Key(keys, 0.5);
 	glScaled(5, 5, 5);
 //	glColor3f(1, 0, 0);
 	glPushMatrix();
 	glTranslated(-40, 0, -15);
 	Draw_Skybox(0, 0, 0, 140, 100, 110);
+
 	glPopMatrix();
+
+
 	//main ground
 	r.QuadWithHighAndTextureMainGround(Point(20,0, -60), -120, -1, 89.5, mainGround,5);//89.5 widthtthththth
 	//2en floor
