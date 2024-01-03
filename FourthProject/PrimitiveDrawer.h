@@ -33,8 +33,8 @@ public:
 	void ColumnsWithTexture(Point v1, int image);
 	void ColumnsWithTextureAndNum(Point v1, int numColumns, float angle, int image);
 	void Stairs(Point v1, float num, int width, float angle,  int image);
-	void chaneDoom(Point v, float scaleX, float scaleY, float scaleZ, int image);
-	void patch(Point v1, float long1, float short1, float scaleX, float scaleY, float scaleZ);
+	void chaneDoom(Point v, float scaleX, float scaleY, float scaleZ, int columnTexture, int domTexture, int nickTexture, int plateTexture);
+		void patch(Point v1, float long1, float short1, float scaleX, float scaleY, float scaleZ, int grass, int ground);
 };
 
 #endif

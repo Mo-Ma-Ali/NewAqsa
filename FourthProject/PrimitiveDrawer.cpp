@@ -1149,7 +1149,7 @@ void PrimitiveDrawer::Draw8polyWithTexture(Point v1, Point v2, Point v3, Point v
 
 }
 
-void PrimitiveDrawer::chaneDoom(Point v, float scaleX, float scaleY, float scaleZ, int image)
+void PrimitiveDrawer::chaneDoom(Point v, float scaleX, float scaleY, float scaleZ,int columnTexture,int domTexture,int nickTexture,int plateTexture)
 {
     PrimitiveDrawer r = PrimitiveDrawer();
     glPushMatrix();
@@ -1163,7 +1163,7 @@ void PrimitiveDrawer::chaneDoom(Point v, float scaleX, float scaleY, float scale
         glRotatef(30, 0, 1, 0);
        
         glPushMatrix();
-        r.drawCylinderWithTexture(Point(0.5, 4, 2), 0.2, -4, 50, image);
+        r.drawCylinderWithTexture(Point(0.5, 4, 2), 0.2, -4, 50, columnTexture);
         glPopMatrix();
     }for (int i = 0; i < 12 * 2; i += 2)
     {
@@ -1171,17 +1171,17 @@ void PrimitiveDrawer::chaneDoom(Point v, float scaleX, float scaleY, float scale
         // Individual column transformation
         glRotatef(30, 0, 1, 0);
         glPushMatrix();
-        r.drawCylinderWithTexture(Point(0.5, 4, 2), 0.2, 4, 50, image);
+        r.drawCylinderWithTexture(Point(0.5, 4, 2), 0.2, 4, 50, columnTexture);
         glPopMatrix();
     }
     glTranslated(-.25, 2.25, -3);
-    r.drawSphereWithTexture(Point(0.5, 4.5, 2), 1.5, 50, 50, image);
+    //dom
+    r.drawSphereWithTexture(Point(0.5, 5, 2), 1.5, 50, 50, domTexture);
     //nick
-    r.drawCylinderWithTexture(Point(0.5, 4, 2), 1.5, 1.5, 50, image);
-    //around dom
-    r.drawCylinderWithTexture(Point(0.5, 4, 2), 1.6, 0.25, 100, image);
+    r.drawCylinderWithTexture(Point(0.5, 4, 2), 1.5, 1.5, 50, nickTexture);
+
     //big around nick
-    r.drawCylinderWithBaseAndTopAndTexture(0.5, 4, 2, 3.6, 1, 1.5, 90, 0, 0, image);
+    r.drawCylinderWithBaseAndTopAndTexture(0.5, 4, 2, 3.6, 1, 1.5, 90, 0, 0, plateTexture);
 
 
 
@@ -1193,7 +1193,7 @@ void PrimitiveDrawer::chaneDoom(Point v, float scaleX, float scaleY, float scale
 }
 
 
-void PrimitiveDrawer::patch(Point v1, float long1, float short1, float scaleX, float scaleY, float scaleZ)
+void PrimitiveDrawer::patch(Point v1, float long1, float short1, float scaleX, float scaleY, float scaleZ,int grass,int ground)
 {
     glPushMatrix();
     PrimitiveDrawer r = PrimitiveDrawer();
@@ -1207,23 +1207,23 @@ void PrimitiveDrawer::patch(Point v1, float long1, float short1, float scaleX, f
 
     // Translate the object back to its original position
     glTranslatef(-center.x, -center.y, -center.z);
-    glColor3f(0, 0, 1);
+  //  glColor3f(0, 0, 1);
     // Draw the first cube
-    r.QuadWithHigh(v1, short1, short1, long1);
+    r.QuadWithHighAndTexture(v1, short1, short1, long1,ground,ground, ground, ground, ground, ground);
 
     // Draw the second cube
     Point v2 = Point(v1.x + long1, v1.y, v1.z + long1);
-    r.QuadWithHigh(v1, long1, short1, short1);
+    r.QuadWithHighAndTexture(v1, long1, short1, short1, ground, ground, ground, ground, ground, ground);
 
     //// Draw the third cube
     Point v3 = Point(v1.x + long1, v1.y, v1.z);
-    r.QuadWithHigh(v3, short1, short1, long1);
+    r.QuadWithHighAndTexture(v3, short1, short1, long1, ground, ground, ground, ground, ground, ground);
 
     //// Draw the fourth cube
     Point v4 = Point(v1.x, v1.y, v1.z + long1);
-    r.QuadWithHigh(v4, long1 + short1, short1, short1);
-    glColor3f(1, 0, 0);
-    r.DrawQuad(v1, v3, v2, v4);
+    r.QuadWithHighAndTexture(v4, long1 + short1, short1, short1, ground, ground, ground, ground, ground, ground);
+  //  glColor3f(1, 0, 0);
+    r.DrawQuadWithTexture(v1, v3, v2, v4,grass);
     glPopMatrix();
 }
 

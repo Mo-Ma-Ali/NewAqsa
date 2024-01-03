@@ -233,7 +233,7 @@ void Key(bool* keys, float speed)
 int image3, leftSideMosque1, leftSideMosque, topMosque,bottomMosque, rightSideMosque, frontSideMosque, ramp, rightSideMosqueFront1Front, rightSideMosqueFront1right, rightSideMosqueFront2front,
 rightSideMosqueFront3front, roofTop, roofSide, roofSideRotated, frontFront, doomSphere, sidePrayer, sideMusiam
 , frontMusiam, frontMusiam2,azan, azanRotated,darkWall, smallDom1, smallDom2, mainGround, mainWall, rotatedMainWall, WallRock1, WallRock2, WallRock3,
-Dom, domWall2, WallRock2Rotated, domPlus, domRoof;
+Dom, domWall2, WallRock2Rotated, domPlus, domRoof, grass;
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
@@ -278,6 +278,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	WallRock2Rotated = LoadTexture("WallRock2Rotated.bmp", 255);
 	domPlus = LoadTexture("domPlus.bmp", 255);
 	domRoof = LoadTexture("domRoof.bmp", 255);
+	grass = LoadTexture("grass.bmp", 255);
 
 
 
@@ -667,7 +668,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	//side stairs
 	r.Stairs(Point(-32, 0, -21), 13, 7, 180, rightSideMosqueFront2front);
 	r.ColumnsWithTextureAndNum(Point(-33, 2, -23.5), 4,0, rightSideMosqueFront2front);
-	r.patch(Point(-30, 0, -14.3), 10, .4, 2, 1, 1.13);
+	r.patch(Point(-30, 0, -14.3), 10, .4, 2, 1, 1.13, grass, rightSideMosqueFront2front);
 	//-50, -24 ,-22.5
 	//r.SmallMinaretWithTexture(Point(-50, 3, -20), 2, 1, 2, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1, darkWall);
 	Point sta = Point(-50, 0, -29);
@@ -676,15 +677,15 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	
 	glPushMatrix();
 	//glRotatef(270, 0, 0, 0);
-	r.patch(Point(-28.76, 0, 18), 10, .4,2,1,1);
+	r.patch(Point(-28.76, 0, 18), 10, .4,2,1,1, grass, rightSideMosqueFront2front);
 	glPopMatrix();
 	glPushMatrix();
 	r.ColumnsWithTextureAndNum(Point(-55.5, 2, -23), 5,90, rightSideMosqueFront2front);
-	r.patch(Point(-75, 3, -8), 10, .4, 1.5, 1, 2.5);
+	r.patch(Point(-75, 3, -8), 10, .4, 1.5, 1, 2.5, grass, rightSideMosqueFront2front);
 	glPopMatrix();
 	glPushMatrix();
 
-	r.chaneDoom(Point(-50, 3, -16), 1.25,1,1.25, rightSideMosqueFront2front);
+	r.chaneDoom(Point(-50, 3, -16), 1.25,1,1.25, rightSideMosqueFront2front, domRoof, WallRock2Rotated, domRoof);
 	r.SmallMinaretWithTexture(Point(-70, 3, -20), 1, 1.5, 1, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, darkWall);
 	r.SmallMinaretWithTexture(Point(-81, 0, -25), 3, 4, 3, smallDom1, smallDom1, darkWall, smallDom1, smallDom1, darkWall, darkWall);
 	glPopMatrix();
