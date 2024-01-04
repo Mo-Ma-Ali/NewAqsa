@@ -170,6 +170,7 @@ rightSideMosqueFront3front, roofTop, roofSide, roofSideRotated, frontFront, doom
 Dom, domWall2, WallRock2Rotated, domPlus, domRoof, grass;
 
 Model_3DS* tree;
+
 GLTexture BARK, Leaf;
 
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
@@ -264,9 +265,9 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	tree->Materials[4].tex = Leaf;
 
 
-	tree->pos.x = -130;
+	/*tree->pos.x = -130;
 	tree->pos.y =0;
-	tree->pos.z = -50;
+	tree->pos.z = -60;*/
 	tree->scale = 1.5;
 
 	
@@ -278,7 +279,20 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	return TRUE;										// Initialization Went OK
 }
 
-
+void draw_trees(int n = 2, int m = 3,double posX=0,double posZ=0,double posY=0) {
+	tree->pos.x = posX;
+	tree->pos.z = posZ;
+	double x = tree->pos.x;
+	for (int j = 0; j < m; j++) {
+		Model_3DS tmp = *tree;
+		tmp.pos.x = x;
+		for (int i = 0; i < n; i++) {
+			tmp.Draw();
+			tmp.pos.z += 25.5;
+		}
+		x += 25.5;
+	}
+}
 
 
 void doom()
@@ -575,7 +589,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glLoadIdentity();
 
 	MyCamera.Render();
-	tree->Draw();
+	//tree->Draw();
+	draw_trees(2,3,-130,-60,0);
+	draw_trees(2,4,-155,100,0);
 	Key(keys, 0.5);
 	glScaled(5, 5, 5);
 //	glColor3f(1, 0, 0);
