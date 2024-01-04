@@ -69,19 +69,23 @@ float rotationSpeed = 0.01f;
 void mouse(int mouseX, int mouseY, bool isClicked, bool isRClicked)
 {
 	if (mouseX != prevMouseX) {
-		k = float((mouseX - prevMouseX) * 0.140625);
+	//	k = float((mouseX - prevMouseX) * 0.140625);
 
-		glRotated(k, 0, 1, 0);
-		MyCamera.RotateY(k);
+
+		k = float((mouseX - prevMouseX) * 0.28125);
+
+		//glRotated(k, 0, 1, 0);
+		MyCamera.RotateY(-k);
 
 		prevMouseX = mouseX;
 	}
 
+	
 	if (mouseY != prevMouseY) {
-		l = float((mouseY - prevMouseY) * 0.1875);
+		l = float((mouseY - prevMouseY) * 0.3913043478);
 
-		glRotated(l, 1, 0, 0);
-		MyCamera.RotateX(l);
+		//glRotated(l, 1, 0, 0);
+		MyCamera.RotateX(-l);
 
 		prevMouseY = mouseY;
 	}
