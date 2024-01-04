@@ -22,6 +22,8 @@ HINSTANCE	hInstance;		// Holds The Instance Of The Application
 bool	keys[256];			// Array Used For The Keyboard Routine
 bool	active = TRUE;		// Window Active Flag Set To TRUE By Default
 bool	fullscreen = FALSE;	// Fullscreen Flag Set To Fullscreen Mode By Default
+int mouseX = 0, mouseY = 0;
+bool isClicked = 0, isRClicked = 0;
 
 LRESULT	CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);	// Declaration For WndProc
 
@@ -53,6 +55,48 @@ PrimitiveDrawer r = PrimitiveDrawer();
 int SKYFRONT, SKYBACK, SKYLEFT, SKYRIGHT, SKYUP, SKYDOWN;
 
 GLUquadric *quadric = gluNewQuadric();
+
+
+
+double k = 0, l = 0, h = 0;
+
+int prevMouseX = 0;
+int prevMouseY = 0;
+
+
+float rotationSpeed = 0.01f;
+
+void mouse(int mouseX, int mouseY, bool isClicked, bool isRClicked)
+{
+	if (mouseX != prevMouseX) {
+		k = float((mouseX - prevMouseX) * 0.140625);
+
+		glRotated(k, 0, 1, 0);
+		MyCamera.RotateY(k);
+
+		prevMouseX = mouseX;
+	}
+
+	if (mouseY != prevMouseY) {
+		l = float((mouseY - prevMouseY) * 0.1875);
+
+		glRotated(l, 1, 0, 0);
+		MyCamera.RotateX(l);
+
+		prevMouseY = mouseY;
+	}
+
+	if (isClicked) {
+		h += 0.1f;
+	}
+	if (isRClicked) {
+		h -= 0.1f;
+	}
+}
+
+
+
+
 
 
 
@@ -587,12 +631,12 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
-
+	mouse(mouseX, mouseY, isClicked, isRClicked);
 	MyCamera.Render();
 	//tree->Draw();
 	draw_trees(2,3,-130,-60,0);
 	draw_trees(2,4,-155,100,0);
-	Key(keys, 0.5);
+	Key(keys, 1);
 	glScaled(5, 5, 5);
 //	glColor3f(1, 0, 0);
 	glPushMatrix();
@@ -952,6 +996,27 @@ LRESULT CALLBACK WndProc(HWND	hWnd,			// Handle For This Window
 {
 	switch (uMsg)									// Check For Windows Messages
 	{
+	case WM_MOUSEMOVE:
+	{
+		mouseX = (int)LOWORD(lParam);
+		mouseY = (int)HIWORD(lParam);
+		isClicked = (LOWORD(wParam) & MK_LBUTTON) ? true : false;
+		isRClicked = (LOWORD(wParam) & MK_RBUTTON) ? true : false;
+		break;
+	}
+
+	case WM_LBUTTONUP:
+	{
+		isClicked = false;
+		break;
+	}
+	case WM_RBUTTONUP:
+		isRClicked = false;   break;
+	case WM_LBUTTONDOWN:
+	{
+		isClicked = true;
+		break;
+	}
 	case WM_ACTIVATE:							// Watch For Window Activate Message
 	{
 													if (!HIWORD(wParam))					// Check Minimization State
