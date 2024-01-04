@@ -134,7 +134,7 @@ void Draw_Skybox(float x, float y, float z, float width, float height, float len
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
-
+GLfloat ambientColor[] = { 1.f, 0.f,0.f, .5f };
 
 void Key(bool* keys, float speed)
 {
@@ -162,6 +162,19 @@ void Key(bool* keys, float speed)
 		MyCamera.MoveUpward(1 * speed);
 	if (keys['L'])
 		MyCamera.MoveUpward(-1 * speed);
+	if (keys['G'])
+	{
+		ambientColor[0] = 0;
+		ambientColor[1] = 0;
+		ambientColor[2] = 1;
+	}
+
+	if (keys['H'])
+	{
+		ambientColor [0] =1 ;
+		ambientColor[1] = 1;
+		ambientColor[2] = 1;
+	}
 	
 }
 int image3, leftSideMosque1, leftSideMosque, topMosque,bottomMosque, rightSideMosque, frontSideMosque, ramp, rightSideMosqueFront1Front, rightSideMosqueFront1right, rightSideMosqueFront2front,
@@ -172,6 +185,20 @@ Dom, domWall2, WallRock2Rotated, domPlus, domRoof, grass;
 Model_3DS* tree;
 
 GLTexture BARK, Leaf;
+float ch = 0;
+GLfloat LightDir[] = { 0.0f,0.0f,-60.0f,1.0f };
+GLfloat LightPos[] = { 0.0f,3.0f,-20.0f,1.0f };
+
+GLfloat LightAmb[] = { 0.5,0.5f,0.5f,1.0f };
+GLfloat LightDiff[] = { 0.6f,0.6f,0.6f,1.0f };
+GLfloat LightSpec[] = { 0.2f,0.2f,0.2f,1.0f };
+
+
+GLfloat MatAmb[] = { 1.0f,0.0f,0.0f,1.0f };
+GLfloat MatDif[] = { 0.6f,0.6f,0.6f,1.0f };
+GLfloat MatSpec[] = { 0.2f,0.2f,0.2f,1.0f };
+
+GLfloat MatShn[] = { 128.0f };
 
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
@@ -181,6 +208,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
+
 
 
 
@@ -598,7 +626,22 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glPushMatrix();
 	glTranslated(-40, 0, -15);
 	Draw_Skybox(0, 0, 0, 140, 100, 110);
+	//Color (0.2, 0.2, 0.2)
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, false);
 
+	glEnable(GL_LIGHT1);
+	glLightfv(GL_LIGHT1, GL_POSITION, LightPos);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmb);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiff);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, LightSpec);
+
+	glEnable(GL_LIGHTING);
+	glMaterialfv(GL_FRONT, GL_AMBIENT, MatAmb);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, MatDif);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, MatSpec);
+	glMaterialfv(GL_FRONT, GL_SHININESS, MatShn);
+	glEnable(GL_COLOR_MATERIAL);
 	glPopMatrix();
 
 
