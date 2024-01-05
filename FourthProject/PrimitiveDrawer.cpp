@@ -1233,7 +1233,7 @@ void PrimitiveDrawer::lighit()
 
     GLfloat ambientColor[] = { 1.f, 0.f,0.f, .5f };
     GLfloat LightDir[] = { 0.0f,0.0f,-60.0f,1.0f };
-    GLfloat LightPos[] = { -40, 0, 0,1.0f };
+    GLfloat LightPos[] = { 0, 0, 0,1.0f };
 
     GLfloat LightAmb[] = { 0.5,0.5f,0.5f,1.0f };
     GLfloat LightDiff[] = { 0.6f,0.6f,0.6f,1.0f };
@@ -1263,7 +1263,7 @@ void PrimitiveDrawer::lighit()
     glEnable(GL_COLOR_MATERIAL);
     //glColor3f(1, 0, 0);
     static float angle = 0.0f;  
-    float radius = 40.0f;       
+    float radius = 110.0f;
     float speed = 0.005f;        //////// Speeddd
 
     
@@ -1277,23 +1277,20 @@ void PrimitiveDrawer::lighit()
     LightPos[2] = 0.0f;  
 
     glLightfv(GL_LIGHT1, GL_POSITION, LightPos);
-    if (LightPos[1] > 1)
-    {
-        ambientColor[0] += LightPos[1] / 100;
-        ambientColor[1] += LightPos[1] / 100;
-        ambientColor[2] = 1;
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+    GLfloat sunriseColor[] = { 1.0f, 0.2f, 0.4f, 1.0f };  // Example sunrise color
+    GLfloat sunsetColor[] = { 0.2f, 0.2f, 0.6f, 1.0f };   // Example sunset color
+
+    // Calculate the position factor between sunrise and sunset (normalized between 0 and 1)
+    float positionFactor = (LightPos[1] + 40.0f) / 80.0f;  // Assuming Y range is [-40, 40]
+
+    // Interpolate between sunrise and sunset colors
+    for (int i = 0; i < 3; ++i) {
+        ambientColor[i] = (1.0f - positionFactor) * sunsetColor[i]  + positionFactor * sunriseColor[i];
     }
-    else if (LightPos[1] < 1)
-    {
-        ambientColor[0] = 0;
-        ambientColor[1] -= LightPos[1] / 100;
-        ambientColor[2] = 1;
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
-    }
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     glPushMatrix();
     glTranslatef(LightPos[0], LightPos[1], LightPos[2]);
-    //auxSolidSphere(10);
+    auxSolidSphere(5);
     glPopMatrix();
 }
 
