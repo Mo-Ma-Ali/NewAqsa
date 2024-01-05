@@ -69,7 +69,7 @@ float rotationSpeed = 0.01f;
 
 void mouse(int mouseX, int mouseY, bool isClicked, bool isRClicked)
 {
-	if (mouseX != prevMouseX) {
+	if ((mouseX != prevMouseX)&&isClicked) {
 	//	k = float((mouseX - prevMouseX) * 0.140625);
 
 
@@ -82,7 +82,7 @@ void mouse(int mouseX, int mouseY, bool isClicked, bool isRClicked)
 	}
 
 	
-	if (mouseY != prevMouseY) {
+	if ((mouseY != prevMouseY) && isClicked) {
 		l = float((mouseY - prevMouseY) * 0.3913043478);
 
 		//glRotated(l, 1, 0, 0);
