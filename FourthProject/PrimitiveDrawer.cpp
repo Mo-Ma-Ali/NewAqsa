@@ -1227,7 +1227,91 @@ void PrimitiveDrawer::patch(Point v1, float long1, float short1, float scaleX, f
     glPopMatrix();
 }
 
+void PrimitiveDrawer::lighit()
+{
+    float ch = 0;
 
+    GLfloat ambientColor[] = { 1.f, 0.f,0.f, .5f };
+    GLfloat LightDir[] = { 0.0f,0.0f,-60.0f,1.0f };
+    GLfloat LightPos[] = { -40, 0, 0,1.0f };
+
+    GLfloat LightAmb[] = { 0.5,0.5f,0.5f,1.0f };
+    GLfloat LightDiff[] = { 0.6f,0.6f,0.6f,1.0f };
+    GLfloat LightSpec[] = { 0.2f,0.2f,0.2f,1.0f };
+
+
+    GLfloat MatAmb[] = { 1.0f,0.0f,0.0f,1.0f };
+    GLfloat MatDif[] = { 0.6f,0.6f,0.6f,1.0f };
+    GLfloat MatSpec[] = { 0.2f,0.2f,0.2f,1.0f };
+
+    GLfloat MatShn[] = { 128.0f };
+
+    
+    glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, false);
+
+    glEnable(GL_LIGHT1);
+    glLightfv(GL_LIGHT1, GL_POSITION, LightPos);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmb);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiff);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, LightSpec);
+
+    glEnable(GL_LIGHTING);
+    glMaterialfv(GL_FRONT, GL_AMBIENT, MatAmb);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, MatDif);
+    glMaterialfv(GL_FRONT, GL_SPECULAR, MatSpec);
+    glMaterialfv(GL_FRONT, GL_SHININESS, MatShn);
+    glEnable(GL_COLOR_MATERIAL);
+    //glColor3f(1, 0, 0);
+    static float angle = 0.0f;  
+    float radius = 40.0f;       
+    float speed = 0.005f;        //////// Speeddd
+
+    
+    angle += speed;
+    /*if (angle == 1)
+    {
+        ambientColor[0] = 1;
+        ambientColor[1] = 1;
+        ambientColor[2] = 1;
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+    }
+    else if (angle == 180)
+    {
+        ambientColor[0] = 0;
+        ambientColor[1] = 0;
+        ambientColor[2] = 1;
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+    }*/
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+    LightPos[0] = radius * cos(angle);
+    LightPos[2] = radius * sin(angle);
+
+    LightPos[0] = radius * std::cos(angle);
+    LightPos[1] = radius * std::sin(angle);
+    LightPos[2] = 0.0f;  
+
+    glLightfv(GL_LIGHT1, GL_POSITION, LightPos);
+    if (LightPos[1] > 1)
+    {
+        ambientColor[0] = 1;
+        ambientColor[1] = 1;
+        ambientColor[2] = 1;
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+    }
+    else if (LightPos[1] < 1)
+    {
+        ambientColor[0] = 0;
+        ambientColor[1] = 0;
+        ambientColor[2] = 1;
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
+    }
+    glPushMatrix();
+    glTranslatef(LightPos[0], LightPos[1], LightPos[2]);
+    auxSolidSphere(10);
+    glPopMatrix();
+}
 
 
 //-19.76 , 0 , 18.15
+
+

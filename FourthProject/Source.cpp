@@ -8,7 +8,8 @@
 #include "camera.h"
 #include "PrimitiveDrawer.h"
 #include "Point.h"
-
+#include <chrono>
+#include <thread>
 #include <fstream>
 #include "Model_3DS.h"
 
@@ -233,20 +234,7 @@ Dom, domWall2, WallRock2Rotated, domPlus, domRoof, grass;
 Model_3DS* tree;
 
 GLTexture BARK, Leaf;
-float ch = 0;
-GLfloat LightDir[] = { 0.0f,0.0f,-60.0f,1.0f };
-GLfloat LightPos[] = { 0.0f,3.0f,-20.0f,1.0f };
 
-GLfloat LightAmb[] = { 0.5,0.5f,0.5f,1.0f };
-GLfloat LightDiff[] = { 0.6f,0.6f,0.6f,1.0f };
-GLfloat LightSpec[] = { 0.2f,0.2f,0.2f,1.0f };
-
-
-GLfloat MatAmb[] = { 1.0f,0.0f,0.0f,1.0f };
-GLfloat MatDif[] = { 0.6f,0.6f,0.6f,1.0f };
-GLfloat MatSpec[] = { 0.2f,0.2f,0.2f,1.0f };
-
-GLfloat MatShn[] = { 128.0f };
 
 int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 {
@@ -675,23 +663,10 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glTranslated(-40, 0, -15);
 	Draw_Skybox(0, 0, 0, 140, 100, 110);
 	//Color (0.2, 0.2, 0.2)
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, false);
-
-	glEnable(GL_LIGHT1);
-	glLightfv(GL_LIGHT1, GL_POSITION, LightPos);
-	glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmb);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiff);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, LightSpec);
-
-	glEnable(GL_LIGHTING);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, MatAmb);
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, MatDif);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, MatSpec);
-	glMaterialfv(GL_FRONT, GL_SHININESS, MatShn);
-	glEnable(GL_COLOR_MATERIAL);
 	glPopMatrix();
-
+	glPushMatrix();
+	r.lighit();
+	glPopMatrix();
 
 	//main ground
 	r.QuadWithHighAndTextureMainGround(Point(20,0, -60), -120, -1, 89.5, mainGround,5);//89.5 widthtthththth
