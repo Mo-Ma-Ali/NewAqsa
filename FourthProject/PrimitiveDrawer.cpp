@@ -1279,21 +1279,21 @@ void PrimitiveDrawer::lighit()
     glLightfv(GL_LIGHT1, GL_POSITION, LightPos);
     if (LightPos[1] > 1)
     {
-        ambientColor[0] = 1;
-        ambientColor[1] = 1;
+        ambientColor[0] += LightPos[1] / 100;
+        ambientColor[1] += LightPos[1] / 100;
         ambientColor[2] = 1;
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     }
     else if (LightPos[1] < 1)
     {
         ambientColor[0] = 0;
-        ambientColor[1] = 0;
+        ambientColor[1] -= LightPos[1] / 100;
         ambientColor[2] = 1;
         glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     }
     glPushMatrix();
     glTranslatef(LightPos[0], LightPos[1], LightPos[2]);
-    auxSolidSphere(10);
+    //auxSolidSphere(10);
     glPopMatrix();
 }
 
