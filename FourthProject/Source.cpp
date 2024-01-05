@@ -82,6 +82,7 @@ void mouse(int mouseX, int mouseY, bool isClicked, bool isRClicked)
 	}
 
 	
+	
 	if ((mouseY != prevMouseY) && isClicked) {
 		l = float((mouseY - prevMouseY) * 0.3913043478);
 
@@ -90,6 +91,15 @@ void mouse(int mouseX, int mouseY, bool isClicked, bool isRClicked)
 
 		prevMouseY = mouseY;
 	}
+	if ((mouseX != prevMouseX) && !isClicked) {
+		prevMouseX = mouseX;
+	}if ((mouseY != prevMouseY) && !isClicked) {
+		prevMouseY = mouseY;
+	}
+
+
+
+
 
 	if (isClicked) {
 		h += 0.1f;
