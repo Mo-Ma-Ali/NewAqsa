@@ -1268,20 +1268,6 @@ void PrimitiveDrawer::lighit()
 
     
     angle += speed;
-    /*if (angle == 1)
-    {
-        ambientColor[0] = 1;
-        ambientColor[1] = 1;
-        ambientColor[2] = 1;
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
-    }
-    else if (angle == 180)
-    {
-        ambientColor[0] = 0;
-        ambientColor[1] = 0;
-        ambientColor[2] = 1;
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
-    }*/
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     LightPos[0] = radius * cos(angle);
     LightPos[2] = radius * sin(angle);
