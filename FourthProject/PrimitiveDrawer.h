@@ -36,6 +36,9 @@ public:
 	void chaneDoom(Point v, float scaleX, float scaleY, float scaleZ, int columnTexture, int domTexture, int nickTexture, int plateTexture);
 		void patch(Point v1, float long1, float short1, float scaleX, float scaleY, float scaleZ, int grass, int ground);
 		void lighit();
+		void buildingWithTexture(Point v1, float scaleX, float scaleY, float scaleZ,
+			int bottomImage, int frontImage, int rightImage,
+			int leftImage, int backImage, int topImage);
 };
 
 #endif

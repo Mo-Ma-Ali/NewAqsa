@@ -739,13 +739,21 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	glPopMatrix();
 	glPushMatrix();
 	r.ColumnsWithTextureAndNum(Point(-55.5, 2, -23), 5,90, rightSideMosqueFront2front);
-	r.patch(Point(-75, 3, -8), 10, .4, 1.5, 1, 2.5, grass, rightSideMosqueFront2front);
+	//r.patch(Point(-75, 3, -8), 10, .4, 1.5, 1, 2.5, grass, rightSideMosqueFront2front);
+	//+		View	{x=-0.994340479 y=-0.0300903674 z=-0.101890050 }	Vector3dStruct
+	//View	{x=- y=0.00000000 z=-0.0523359701 }	Vector3dStruct
+	r.patch(Point(-69.13, 0, -34.55), 10, .4, 2, 1, 1, grass, rightSideMosqueFront2front);
+	r.patch(Point(-45.25, 0, -34.55), 10, .4, 1, 1, 1, grass, rightSideMosqueFront2front);
+	r.buildingWithTexture(Point(-98.21, 0, 14.67), 3, 7, 5, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1);
+	r.SmallMinaretWithTexture(Point(-74.29, 3, 10.16), 2, 3.5, 2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, darkWall);
 	glPopMatrix();
 	glPushMatrix();
-
 	r.chaneDoom(Point(-50, 3, -16), 1.25,1,1.25, rightSideMosqueFront2front, domRoof, WallRock2Rotated, domRoof);
 	r.SmallMinaretWithTexture(Point(-70, 3, -20), 1, 1.5, 1, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, darkWall);
 	r.SmallMinaretWithTexture(Point(-81, 0, -25), 3, 4, 3, smallDom1, smallDom1, darkWall, smallDom1, smallDom1, darkWall, darkWall);
+	glPopMatrix();
+	glPushMatrix();
+	r.Stairs(Point(-43.736, 0, 16.33), 11, 5, 90, rightSideMosqueFront2front);
 	glPopMatrix();
 /*	glEnable(GL_TEXTURE_2D);
      	glBindTexture(GL_TEXTURE_2D, image2);

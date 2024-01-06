@@ -1227,6 +1227,81 @@ void PrimitiveDrawer::patch(Point v1, float long1, float short1, float scaleX, f
     glPopMatrix();
 }
 
+
+
+void PrimitiveDrawer::buildingWithTexture(Point v1, float scaleX, float scaleY, float scaleZ,
+    int bottomImage, int frontImage, int rightImage,
+    int leftImage, int backImage, int topImage)
+{
+    glPushMatrix(); // Save the current matrix
+
+    // Translate to the specified position
+    glTranslatef(v1.x, v1.y, v1.z);
+
+    // Apply scaling
+    glScalef(scaleX, scaleY, scaleZ);
+
+    // Draw the cube with textured faces
+    glEnable(GL_TEXTURE_2D);
+
+    // Bottom face
+    glBindTexture(GL_TEXTURE_2D, bottomImage);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+    glTexCoord2f(1, 0); glVertex3f(2, 0, 0);
+    glTexCoord2f(1, 1); glVertex3f(2, 2, 0);
+    glTexCoord2f(0, 1); glVertex3f(0, 2, 0);
+    glEnd();
+
+    // Front face
+    glBindTexture(GL_TEXTURE_2D, frontImage);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 0, 0);
+    glTexCoord2f(1, 0); glVertex3f(2, 0, 0);
+    glTexCoord2f(1, 1); glVertex3f(2, 0, 2);
+    glTexCoord2f(0, 1); glVertex3f(0, 0, 2);
+    glEnd();
+
+    // Right face
+    glBindTexture(GL_TEXTURE_2D, rightImage);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(2, 0, 0);
+    glTexCoord2f(1, 0); glVertex3f(2, 0, 2);
+    glTexCoord2f(1, 1); glVertex3f(2, 2, 2);
+    glTexCoord2f(0, 1); glVertex3f(2, 2, 0);
+    glEnd();
+
+    // Left face
+    glBindTexture(GL_TEXTURE_2D, leftImage);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 0, 2);
+    glTexCoord2f(1, 0); glVertex3f(0, 0, 0);
+    glTexCoord2f(1, 1); glVertex3f(0, 2, 0);
+    glTexCoord2f(0, 1); glVertex3f(0, 2, 2);
+    glEnd();
+
+    // Back face
+    glBindTexture(GL_TEXTURE_2D, backImage);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 2, 2);
+    glTexCoord2f(1, 0); glVertex3f(2, 2, 2);
+    glTexCoord2f(1, 1); glVertex3f(2, 2, 0);
+    glTexCoord2f(0, 1); glVertex3f(0, 2, 0);
+    glEnd();
+
+    // Top face
+    glBindTexture(GL_TEXTURE_2D, topImage);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0, 0); glVertex3f(0, 0, 2);
+    glTexCoord2f(1, 0); glVertex3f(2, 0, 2);
+    glTexCoord2f(1, 1); glVertex3f(2, 2, 2);
+    glTexCoord2f(0, 1); glVertex3f(0, 2, 2);
+    glEnd();
+
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+}
+
 void PrimitiveDrawer::lighit()
 {
     float ch = 0;
