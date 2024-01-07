@@ -664,8 +664,15 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	mouse(mouseX, mouseY, isClicked, isRClicked);
 	MyCamera.Render();
 	//tree->Draw();
-	draw_trees(2,3,-130,-60,0);
-	draw_trees(2,4,-155,100,0);
+	draw_trees(2, 3, -130, -60, 0);
+	draw_trees(2, 4, -155, 100, 0);
+	draw_trees(2, 3, -130, 42.4, 0);
+	draw_trees(2, 2, -215.86, -162,0);
+	draw_trees(4, 2, -215.86, -280.27, 0);
+	draw_trees(2, 4, -357, -162, 0);
+	draw_trees(1, 6, -94, -173, 0);
+	draw_trees(4, 4, -357, -280.27, 0);
+	//-155 ,-280.27 ,0
 	Key(keys, 1);
 	glScaled(5, 5, 5);
 //	glColor3f(1, 0, 0);
@@ -726,8 +733,9 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	r.ColumnsWithTextureAndNum(Point(-33, 2, -23.5), 4,0, rightSideMosqueFront2front);
 	r.patch(Point(-27.76, 0, -14.3), 10, .4, 2, 1, 1.13, grass, rightSideMosqueFront2front);
 	r.patch(Point(-27.76, 0, 6.3), 10, .4, 2, 1, 1.3, grass, rightSideMosqueFront2front);/////
-
-	//-50, -24 ,-22.5
+	r.patch(Point(-45.25, 0, -54.2), 10, .4, 1, 1, 2, grass, rightSideMosqueFront2front);
+	//-69.13,0,-54.2
+	r.patch(Point(-69.13, 0, -54.2),10,.4,2,1,2, grass, rightSideMosqueFront2front);
 	//r.SmallMinaretWithTexture(Point(-50, 3, -20), 2, 1, 2, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1, darkWall);
 	Point sta = Point(-50, 0, -29);
 	r.Stairs(sta, 13, 8, 270, rightSideMosqueFront2front);
@@ -745,15 +753,19 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	r.patch(Point(-69.13, 0, -34.55), 10, .4, 2, 1, 1, grass, rightSideMosqueFront2front);
 	r.patch(Point(-45.25, 0, -34.55), 10, .4, 1, 1, 1, grass, rightSideMosqueFront2front);
 	r.buildingWithTexture(Point(-98.21, 0, 14.67), 3, 7, 5, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1);
+	r.buildingWithTexture(Point(-98.93, 0, -58.97), 3, 7, 5, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1, smallDom1);
+	r.patch(Point(-41.164, 0, 17.78), 10, .4, -.66, 1, 1, grass, rightSideMosqueFront2front);
 	r.SmallMinaretWithTexture(Point(-74.29, 3, 10.16), 2, 3.5, 2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, darkWall);
 	glPopMatrix();
 	glPushMatrix();
 	r.chaneDoom(Point(-50, 3, -16), 1.25,1,1.25, rightSideMosqueFront2front, domRoof, WallRock2Rotated, domRoof);
 	r.SmallMinaretWithTexture(Point(-70, 3, -20), 1, 1.5, 1, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, darkWall);
+	r.SmallMinaretWithTexture(Point(-49.144, 0, -48.86), 2, 2.5, 2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, smallDom2, darkWall);
 	r.SmallMinaretWithTexture(Point(-81, 0, -25), 3, 4, 3, smallDom1, smallDom1, darkWall, smallDom1, smallDom1, darkWall, darkWall);
 	glPopMatrix();
 	glPushMatrix();
 	r.Stairs(Point(-43.736, 0, 16.33), 11, 5, 90, rightSideMosqueFront2front);
+	r.ColumnsWithTextureAndNum(Point(-46.69, 2, 17.73), 3, 90, rightSideMosqueFront2front);
 	glPopMatrix();
 /*	glEnable(GL_TEXTURE_2D);
      	glBindTexture(GL_TEXTURE_2D, image2);
