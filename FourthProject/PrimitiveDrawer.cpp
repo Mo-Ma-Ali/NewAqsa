@@ -1302,7 +1302,7 @@ void PrimitiveDrawer::buildingWithTexture(Point v1, float scaleX, float scaleY, 
     glPopMatrix();
 }
 
-void PrimitiveDrawer::lighit()
+void PrimitiveDrawer::lighit(int sun)
 {
     float ch = 0;
 
@@ -1365,7 +1365,9 @@ void PrimitiveDrawer::lighit()
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     glPushMatrix();
     glTranslatef(LightPos[0], LightPos[1], LightPos[2]);
+    glBindTexture(GL_TEXTURE_2D, sun);
     auxSolidSphere(5);
+    glDisable(GL_TEXTURE_2D);
     glPopMatrix();
 }
 

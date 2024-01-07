@@ -239,7 +239,7 @@ void Key(bool* keys, float speed)
 int image3, leftSideMosque1, leftSideMosque, topMosque,bottomMosque, rightSideMosque, frontSideMosque, ramp, rightSideMosqueFront1Front, rightSideMosqueFront1right, rightSideMosqueFront2front,
 rightSideMosqueFront3front, roofTop, roofSide, roofSideRotated, frontFront, doomSphere, sidePrayer, sideMusiam
 , frontMusiam, frontMusiam2,azan, azanRotated,darkWall, smallDom1, smallDom2, mainGround, mainWall, rotatedMainWall, WallRock1, WallRock2, WallRock3,
-Dom, domWall2, WallRock2Rotated, domPlus, domRoof, grass;
+Dom, domWall2, WallRock2Rotated, domPlus, domRoof, grass,sun;
 
 Model_3DS* tree;
 
@@ -271,6 +271,7 @@ int InitGL(GLvoid)										// All Setup For OpenGL Goes Here
 	rightSideMosqueFront1right = LoadTexture("rightSideMosqueFront1right.bmp", 255);
 	rightSideMosqueFront2front = LoadTexture("wall2.bmp", 255);
 	darkWall = LoadTexture("wall.bmp", 255);
+	sun = LoadTexture("sun.bmp");
 
 	rightSideMosqueFront3front = LoadTexture("rightSideMosqueFront3front.bmp", 255);
 	sideMusiam = LoadTexture("sideMusiam.bmp", 255);
@@ -682,7 +683,7 @@ int DrawGLScene(GLvoid)									// Here's Where We Do All The Drawing
 	//Color (0.2, 0.2, 0.2)
 	glPopMatrix();
 	glPushMatrix();
-	r.lighit();
+	r.lighit(sun);
 	glPopMatrix();
 
 	//main ground
